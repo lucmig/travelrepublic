@@ -37,13 +37,19 @@ namespace TravelRepublic.Services.Api.Tests
         {new Segment() { DepartureDate = new DateTime(2016,3,3,14,0,0), ArrivalDate = new DateTime(2016,3,3,12,0,0)}}
       };
       var flight3 = new Flight() { Segments = segments3 };
-      
-      var flights = new List<Flight>() { flight1, flight2, flight3 };
+
+      var flight4 = new Flight() { Segments = new List<Segment>() { new Segment() } };
+
+      var flight5 = new Flight() { Segments = new List<Segment>() };
+
+      var flight6 = new Flight();
+
+      var flights = new List<Flight>() { flight1, flight2, flight3, flight4, flight5, flight6 };
       _flightBuilderMock.Setup(fb => fb.GetFlights()).Returns(flights);
     }
 
     [TestMethod()]
-    public void FlightSchedulesTest()
+    public void GetFlightsDepartingBeforeTest()
     {
       var flightSchedules = new FlightSchedules(_flightBuilderMock.Object);
       var flights = flightSchedules.GetFlightsDepartingBefore(new DateTime(2016, 3, 1, 14, 30, 0));
